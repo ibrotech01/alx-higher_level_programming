@@ -1,85 +1,73 @@
 #!/usr/bin/python3
-"""Square module"""
+""" Square module """
 
 
 class Square:
-    """Define square"""
+    """ Declares a square class """
 
-    def __str__(self):
-        """String representation constructor of this square"""
-        self.my_print()
-
-    def __init__(self, size=0, position=(0, 0)):
-        """Constructor
-        Args:
-            size(int): length of side of the square
-            position(int tuple): position of the square
+    def __init__(self, size=0, position=(0, 0)) -> None:
         """
-        if not (isinstance(size, int)):
-            raise TypeError("size must be an integer")
-        if size < 0:
-            raise ValueError("size must be >= 0")
-
-        self.__size = size
-        self.__position = position
+        Intializes the attributes
+        Args:
+            size: size of square
+            position:  position of square
+        """
+        self.size = size
+        self.position = position
 
     @property
     def size(self):
-        """Properties for the length of square's size
-        Raise:
-            TypeError: if size is not an integer
-            ValueError: if size < 0
-        """
+        """ Gets the private attribute to be used in class """
         return self.__size
 
     @size.setter
     def size(self, value):
-        """setter function for private attribute size
-        Args:
-            value: size value to set to
-        """
-        if not (isinstance(value, int)):
+        if type(value) is not int:
             raise TypeError("size must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("size must be >= 0")
-        self.__size = value
+        else:
+            self.__size = value
 
     @property
     def position(self):
-        """Property for square
-        Raise:
-            TypeError: if value is not tuple of two positive numbers
-        """
+        """ Gets the private attribute to be used in class """
         return self.__position
 
     @position.setter
     def position(self, value):
-        """setter function for private attribute position
-        Args:
-            value: position value to set to
-        """
-        if isinstance(value, tuple) and len(value) == 2:
-            if isinstance(value[0], int) and isinstance(value[1], int):
-                if value[0] >= 0 and value[1] >= 0:
-                    self.__position = value
+        if type(value) is not tuple or len(value) != 2:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        elif type(value[0]) is not int or value[0] < 0:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        elif type(value[1]) is not int or value[1] < 0:
+            raise TypeError("position must be a tuple of 2 positive integers")
         else:
-            raise TypeError("position must be tuple of 2 positive integers")
+            self.__position = value     # tuple contains 2 positive integers
 
     def area(self):
-        """Area of the square
-        Returns:
-            the size of square
-        """
-        return self.__siz ** 2
+        """ Computes area of a square """
+        return self.__size ** 2
 
     def my_print(self):
-        """Print square with char #"""
+        """ Prints in stdout the square with the character # """
         if self.__size == 0:
             print()
         else:
-            i, j = 0, 0
-            for i in range(self.__position[1]):
+            integer = 0
+            pos1, pos2 = self.__position
+            for new_line in range(pos2):
                 print()
-            for j in range(self.__size):
-                print("{}{}".format("" * self.__position[0],
-                                    "#" * self.__size))
+            while integer < self.__size:
+
+                j = 0
+                while j < pos1:
+                    print(" ", end='')  # replace position with space
+                    j += 1
+
+                number = 0
+                while number < self.__size:
+                    print("{}".format("#"), end='')
+                    number += 1
+                print()
+                integer += 1
